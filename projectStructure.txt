@@ -1,0 +1,11 @@
+CRUD :- create, read, update, delete
+
+/   -  home 		- GET 		- to see the list
+/   -  homeCreate  	- POST 		- to add new task
+/   -  homeDelete  	- DELETE 	- to delete the task
+
+
+Add SQL
+
+
+Further Update :----------------
