@@ -2,6 +2,7 @@ package models
 
 import(
 	"database/sql"
+    "errors"
 	"time"
 )
 
@@ -35,10 +36,46 @@ func (m *TaskModel) Insert(task string) (int, error) {
 
 // This will return a specific snippet based on its id.
 func (m *TaskModel) Get(id int) (*Tasks, error) {
-    return nil, nil
+    s := &Tasks{}
+
+    err := m.DB.QueryRow("SELECT id, task, created FROM tasks WHERE id = ?", id).Scan(&s.ID, &s.Task, &s.Created)
+    if err != nil {
+        if errors.Is(err, sql.ErrNoRows) {
+            return nil, ErrNoRecord
+        } else {
+            return nil, err
+        }
+    }
+
+    return s, nil
 }
 
 // This will return the 10 most recently created snippets.
 func (m *TaskModel) Latest() ([]*Tasks, error) {
-    return nil, nil
+    stmt := `SELECT id, task, created FROM tasks 
+             ORDER BY id DESC LIMIT 10`
+
+    rows, err := m.DB.Query(stmt)
+    if err != nil {
+        return nil, err
+    }
+
+    defer rows.Close()
+
+    tasks := []*Tasks{}
+
+    for rows.Next(){
+        s := &Tasks{}
+
+        err = rows.Scan(&s.ID, &s.Task, &s.Created)
+        if err != nil {
+            return nil, err
+        }
+        tasks = append(tasks,s)
+    }
+
+    if err = rows.Err(); err != nil{
+        return nil, err
+    }
+    return tasks, nil
 }
