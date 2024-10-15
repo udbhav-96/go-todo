@@ -6,15 +6,15 @@
 		<h1>Your Task - {{.Task}}</h1>
 		<table class="w-100 mt-5">
 	        <tr>
+	            <th>ID</th>
 	            <th>Task</th>
 	            <th>Created</th>
-	            <th>ID</th>
 	            <th>Options</th>
 	        </tr>
 	        <tr>
-	            <td>{{.Task}}</td>
-	            <td>{{.Created}}</td>
 	            <td>#{{.ID}}</td>
+	            <td>{{.Task}}</td>
+	            <td>{{humanDate .Created}}</td>
 	            <td><button type="submit" class="btn btn-danger">Delete</button></td>
 	        </tr>
 	    </table>

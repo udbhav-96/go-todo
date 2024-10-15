@@ -9,6 +9,9 @@ import (
 func(app *application) routes() *mux.Router{
 	router := mux.NewRouter()
 
+	router.Use(secureHeaders)
+	router.Use(app.logRequest)
+
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static", fileServer))
 

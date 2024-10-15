@@ -17,16 +17,16 @@
 				<h1>Tasks</h1>
 				<table class="w-100">
 			        <tr>
+			            <th>ID</th>
 			            <th>Task</th>
 			            <th>Created</th>
-			            <th>ID</th>
 			            <th>Options</th>
 			        </tr>
 			        {{range .Tasks}}
 			        <tr>
-			            <td><a href='/todo/{{.ID}}'>{{.Task}}</a></td>
-			            <td>{{.Created}}</td>
 			            <td>#{{.ID}}</td>
+			            <td><a href='/todo/{{.ID}}'>{{.Task}}</a></td>
+			            <td>{{humanDate .Created}}</td>
 			            <td><button type="submit" class="btn btn-danger">Delete</button></td>
 			        </tr>
 			        {{end}}

@@ -1,13 +1,10 @@
 package main
 
 import(
-	// "encoding/json"
 	"errors"
 	"fmt"
-	// "log"
 	"net/http"
 	"strconv"
-	"html/template"
 
 	"github.com/udbhav-96/go-todo/internal/models"
 	"github.com/gorilla/mux"
@@ -24,27 +21,11 @@ func (app *application) allTodo(w http.ResponseWriter, r *http.Request){
 		app.serverError(w, err)
 		return
 	}
-	// log.Printf("Number of tasks: %d", len(tasks))
 
-	files := []string{
-        "./ui/html/base.tmpl",
-        "./ui/html/pages/home.tmpl",
-    }
+	data := app.newTemplateData(r)
+	data.Tasks = tasks
 
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	data := &templateData{
-		Tasks: tasks,
-	}
-
-	err = ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
-	}
+	app.render(w, http.StatusOK, "home.tmpl", data)
 }
 
 func (app *application) oneTodo(w http.ResponseWriter, r *http.Request) {
@@ -74,31 +55,10 @@ func (app *application) oneTodo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	files := []string{
-        "./ui/html/base.tmpl",
-        "./ui/html/pages/view.tmpl",
-    }
+	data := app.newTemplateData(r)
+	data.Task = task
 
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	data := &templateData{
-		Task: task,
-	}
-
-	err = ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
-	}
-
-	// Marshal task to JSON and write the response
-	// err = json.NewEncoder(w).Encode(task)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// }
+	app.render(w, http.StatusOK, "view.tmpl", data)
 }
 
 func (app *application) homeCreate(w http.ResponseWriter, r *http.Request){
