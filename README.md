@@ -4,8 +4,7 @@ This is a Todo Web Application built with Go. It demonstrates the use of clean a
 ## Project Structure
 
 go-todo/ 
-![Screenshot from 2024-10-16 21-45-44](https://github.com/user-attachments/assets/464e504c-192f-4a4c-b4d6-0dc1e67051f4)
-
+![Screenshot from 2024-10-16 21-46-37](https://github.com/user-attachments/assets/c4168e48-3d49-4604-aec2-a09404d1cb1a)
 
 ## Prerequisites
 Before setting up the database, ensure you have the following installed:
@@ -29,8 +28,7 @@ Before setting up the database, ensure you have the following installed:
     task VARCHAR(255) NOT NULL,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
-![Screenshot from 2024-10-16 21-46-37](https://github.com/user-attachments/assets/c4168e48-3d49-4604-aec2-a09404d1cb1a)
-
+![Screenshot from 2024-10-16 21-45-44](https://github.com/user-attachments/assets/464e504c-192f-4a4c-b4d6-0dc1e67051f4)
 
 ## How to Run the Application / Installation
 
