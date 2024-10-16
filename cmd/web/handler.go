@@ -2,7 +2,6 @@ package main
 
 import(
 	"errors"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -68,16 +67,51 @@ func (app *application) homeCreate(w http.ResponseWriter, r *http.Request){
 		return 
 	}
 
-	title := "React Project"
+	err := r.ParseForm()
+    if err != nil {
+        app.serverError(w, err)
+        return
+    }
 
-	id, err := app.tasks.Insert(title)
+    taskName := r.FormValue("task")
+
+    if taskName == "" {
+        http.Error(w, "Task name is required", http.StatusBadRequest)
+        return
+    }
+
+	_, err = app.tasks.Insert(taskName)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
-	http.Redirect(w, r, fmt.Sprintf("/todo/%d",id), http.StatusSeeOther)
+
+	http.Redirect(w, r, "/todo", http.StatusSeeOther)
 }
 
 func (app *application) homeDelete(w http.ResponseWriter, r *http.Request){
-	w.Write([]byte("Todo List"))
+
+	 if r.Method == http.MethodPost && r.FormValue("_method") == "DELETE" {
+        // Extract the task ID from the URL
+        vars := mux.Vars(r)
+        idStr := vars["id"]
+
+        id, err := strconv.Atoi(idStr)
+        if err != nil {
+            http.Error(w, "Invalid task ID", http.StatusBadRequest)
+            return
+        }
+
+        
+        err = app.tasks.Delete(id)
+        if err != nil {
+            app.serverError(w, err)
+            return
+        }
+
+        http.Redirect(w, r, "/todo", http.StatusSeeOther)
+        return
+    }
+
+    http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 }

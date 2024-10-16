@@ -3,6 +3,7 @@
 {{define "main"}}
 	{{with .Task}}
 	<div class="container text-center p-5">
+		<a type="button" class="btn btn-primary" href="/todo" style="float: left;">Back</a>
 		<h1>Your Task - {{.Task}}</h1>
 		<table class="w-100 mt-5">
 	        <tr>
@@ -15,8 +16,33 @@
 	            <td>#{{.ID}}</td>
 	            <td>{{.Task}}</td>
 	            <td>{{humanDate .Created}}</td>
-	            <td><button type="submit" class="btn btn-danger">Delete</button></td>
+	            <td>
+	            	<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+							  Delete
+							</button>
+	            </td>
 	        </tr>
+	        <!-- Modal -->
+					<div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+					  <div class="modal-dialog modal-dialog-centered">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h1 class="modal-title fs-5" id="deleteModal">Are You sure? </h1>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					        <p>Do You really wanted to delete '{{.Task}}' task?</p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+					        <form action="/todo/{{.ID}}" method="POST" style="display:inline;">
+			            		 <input type="hidden" name="_method" value="DELETE">
+    							<button type="submit" class="btn btn-danger">Yes</button>
+						    </form>
+					      </div>
+					    </div>
+					  </div>
+					</div>
 	    </table>
 	</div>
 	{{end}}

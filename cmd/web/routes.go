@@ -11,6 +11,7 @@ func(app *application) routes() *mux.Router{
 
 	router.Use(secureHeaders)
 	router.Use(app.logRequest)
+	router.Use(app.recoverPanic)
 
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static", fileServer))
@@ -18,7 +19,7 @@ func(app *application) routes() *mux.Router{
 	router.HandleFunc("/todo", app.allTodo).Methods("GET")
 	router.HandleFunc("/todo/{id}", app.oneTodo).Methods("GET")
 	router.HandleFunc("/todo", app.homeCreate).Methods("POST")
-	router.HandleFunc("/todo/{id}", app.homeDelete).Methods("DELETE")
+	router.HandleFunc("/todo/{id}", app.homeDelete).Methods("POST")
 
 	return router
 }

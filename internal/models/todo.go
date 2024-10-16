@@ -79,3 +79,16 @@ func (m *TaskModel) Latest() ([]*Tasks, error) {
     }
     return tasks, nil
 }
+
+func (m *TaskModel) Delete(id int) error {
+    // Prepare your delete SQL query
+    stmt := `DELETE FROM tasks WHERE id = ?`
+    
+    // Execute the query
+    _, err := m.DB.Exec(stmt, id)
+    if err != nil {
+        return err
+    }
+
+    return nil
+}
