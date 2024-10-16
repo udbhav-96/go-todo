@@ -3,37 +3,8 @@ This is a Todo Web Application built with Go. It demonstrates the use of clean a
 
 ## Project Structure
 
-go-todo/
-│
-├── cmd/
-│   └── web/
-│       ├── handler.go        # Handlers for HTTP requests
-│       ├── helpers.go        # Utility functions
-│       ├── main.go           # Application entry point
-│       ├── middleware.go     # Custom middleware for request handling
-│       ├── routes.go         # API route definitions
-│       └── templates.go      # Template parsing and rendering
-│
-├── internal/
-│   └── models/
-│       ├── errors.go         # Error handling logic
-│       └── todo.go           # Todo model and database operations
-│
-├── ui/
-│   ├── html/
-│   │   ├── pages/
-│   │   │   ├── home.tmpl     # Home page template
-│   │   │   └── view.tmpl     # View todo items template
-│   │   └── base.tmpl         # Base template layout
-│   │
-│   └── static/
-│       ├── css/
-│       │   └── main.css      # Styling for the web pages
-│       └── img/              # Images directory
-│
-├── go.mod                    # Go module dependencies
-├── go.sum                    # Dependency checksum file
-└── projectStructure.txt      # Overview of project structure
+go-todo/ 
+![Screenshot from 2024-10-16 21-45-44](https://github.com/user-attachments/assets/464e504c-192f-4a4c-b4d6-0dc1e67051f4)
 
 
 ## Prerequisites
@@ -56,10 +27,9 @@ Before setting up the database, ensure you have the following installed:
    CREATE TABLE tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     task VARCHAR(255) NOT NULL,
-    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);![Screenshot from 2024-10-16 21-45-44](https://github.com/user-attachments/assets/464e504c-192f-4a4c-b4d6-0dc1e67051f4)
-![Screenshot from 2024-10-16 21-46-37](https://github.com/user-attachments/assets/c4168e48-3d49-4604-aec2-a09404d1cb1a)
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
 
+![Screenshot from 2024-10-16 21-46-37](https://github.com/user-attachments/assets/c4168e48-3d49-4604-aec2-a09404d1cb1a)
 
 
 ## How to Run the Application / Installation
